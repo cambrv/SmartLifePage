@@ -133,7 +133,7 @@
                         </button>
                     </div>
                     <div
-                        class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                        class="flex flex-1 items-center justify-around sm:items-stretch sm:justify-around">
                         <div class="flex flex-shrink-0 items-center">
                             <img
                                 class="h-10 w-auto"
@@ -167,111 +167,115 @@
                                     data-page="contactanos.html">Contáctanos</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile menu, show/hide based on menu state. -->
-            <div id="mobile-menu" class="sm:hidden" id="mobile-menu">
-                <div class="space-y-1 px-2 pb-3 pt-2">
-                    <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                    <a
-                        href="#"
-                        class="block rounded-md bg-neutral-800 px-3 py-2 text-base font-medium text-white"
-                        data-page="inicio.html"
-                        aria-current="page">Inicio</a>
-                    <a
-                        href="#"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
-                        data-page="productos.html">Productos</a>
-                    <a
-                        href="#"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
-                        data-page="smartcare.html">SmartCare</a>
-                    <a
-                        href="#"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
-                        data-page="quienes-somos.html">Quiénes Somos</a>
-                    <a
-                        href="#"
-                        class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
-                        data-page="contactanos.html">Contáctanos</a>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Contenedor para cargar el contenido -->
-        <main id="content">
-            <!-- Aquí se cargará el contenido de las otras páginas -->
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-neutral-500 text-white py-6">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-col md:flex-row justify-between">
-                    <!-- Sección de la izquierda -->
-                    <div class="mb-4 md:mb-0">
-                        <h5 class="text-lg font-bold">SmartLife</h5>
-                        <p class="text-sm">
-                            Innovando tu salud y estilo de vida con la última
-                            tecnología.
-                        </p>
-                    </div>
-                    <!-- Sección central -->
-                    <div class="mb-4 md:mb-0">
-                        <h5 class="text-lg font-bold">SmartLife</h5>
-                        <ul class="text-sm space-y-2">
-                            <li><a href="#"
-                                    class="hover:underline">Inicio</a></li>
-                            <li><a href="#"
-                                    class="hover:underline">Productos</a></li>
-                            <li><a href="#"
-                                    class="hover:underline">SmartCare</a></li>
-                            <li><a href="#" class="hover:underline">Quiénes
-                                    Somos</a></li>
-                            <li><a href="#"
-                                    class="hover:underline">Contáctanos</a></li>
-                        </ul>
-                    </div>
-                    <!-- Sección de la derecha -->
-                    <div>
-                        <h5 class="text-lg font-bold">Contáctanos</h5>
-                        <p class="text-sm">Email: contacto@smartlife.com</p>
-                        <p class="text-sm">Tel: +123 456 7890</p>
-                        <div class="flex space-x-4 mt-2">
-                            <!-- Iconos de redes sociales (pueden ser reemplazados con los logos que prefieras) -->
-                            <a href="#" class="hover:text-gray-400">
-                                <svg class="h-6 w-6" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24h21.351C23.407 24 24 23.407 24 22.675V1.325C24 .593 23.407 0 22.675 0zm-2.8 8.292h-2.186c-1.72 0-2.045.818-2.045 2.016v2.644h4.09l-.532 4.105h-3.558V24h-4.195v-6.943h-3.588v-4.105h3.588v-3.025c0-3.55 2.174-5.486 5.351-5.486 1.523 0 2.833.113 3.217.164v3.735z" />
-                                </svg>
-                            </a>
-                            <a href="#" class="hover:text-gray-400">
+                        <div
+                            class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <a href="https://github.com/cambrv/SmartLifePage" target="_blank"
+                                class="flex gap-5 relative rounded-full p-1 text-white hover:text-purple-100 focus:outline-none">
+                                <span class="absolute -inset-1.5"></span>
+                                <span
+                                    class="text-sm font-medium text-white hover:bg-neutral-600 hover:text-white">Código</span>
                                 <svg class="h-6 w-6" fill="currentColor"
                                     viewBox="0 0 24 24">
                                     <path
                                         d="M12 0C5.373 0 0 5.373 0 12c0 4.99 3.657 9.128 8.438 10.383.618.113.843-.268.843-.597 0-.294-.01-1.07-.016-2.101-3.432.746-4.154-1.654-4.154-1.654-.562-1.428-1.374-1.809-1.374-1.809-1.124-.769.086-.753.086-.753 1.243.087 1.897 1.276 1.897 1.276 1.104 1.89 2.896 1.344 3.601 1.028.112-.8.43-1.345.782-1.656-2.741-.312-5.616-1.37-5.616-6.096 0-1.346.473-2.446 1.251-3.305-.126-.312-.543-1.562.119-3.256 0 0 1.024-.328 3.352 1.252a11.652 11.652 0 013.053-.409c1.034.005 2.074.14 3.052.41 2.329-1.58 3.351-1.252 3.351-1.252.664 1.694.246 2.944.12 3.256.78.859 1.251 1.959 1.251 3.305 0 4.738-2.881 5.78-5.625 6.084.444.381.839 1.13.839 2.282 0 1.648-.015 2.978-.015 3.385 0 .333.222.717.852.594C20.343 21.128 24 16.99 24 12c0-6.627-5.373-12-12-12z" />
                                 </svg>
                             </a>
-                            <a href="#" class="hover:text-gray-400">
-                                <svg class="h-6 w-6" fill="currentColor"
-                                    viewBox="0 0 24 24">
-                                    <path
-                                        d="M22.23 0H1.77C.792 0 0 .792 0 1.77v20.459C0 23.207.792 24 1.77 24h20.459C23.207 24 24 23.207 24 22.229V1.77C24 .792 23.207 0 22.23 0zm-1.146 17.453c0 .57-.462 1.032-1.032 1.032H3.945a1.032 1.032 0 01-1.032-1.032V6.549c0-.57.462-1.032 1.032-1.032h16.108c.57 0 1.032.462 1.032 1.032v10.904z" />
-                                </svg>
-                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 border-t border-neutral-500 pt-4 text-center">
-                    <p class="text-xs">
-                        &copy; 2024 SmartLife. Todos los derechos reservados.
-                    </p>
-                </div>
-            </div>
-        </footer>
 
-        <script src="scripts/script.js" defer></script>
-    </body>
-</html>
+                <!-- Mobile menu, show/hide based on menu state. -->
+                <div id="mobile-menu" class="sm:hidden" id="mobile-menu">
+                    <div class="space-y-1 px-2 pb-3 pt-2">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a
+                            href="#"
+                            class="block rounded-md bg-neutral-800 px-3 py-2 text-base font-medium text-white"
+                            data-page="inicio.html"
+                            aria-current="page">Inicio</a>
+                        <a
+                            href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
+                            data-page="productos.html">Productos</a>
+                        <a
+                            href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
+                            data-page="smartcare.html">SmartCare</a>
+                        <a
+                            href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
+                            data-page="quienes-somos.html">Quiénes Somos</a>
+                        <a
+                            href="#"
+                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-neutral-700 hover:text-white"
+                            data-page="contactanos.html">Contáctanos</a>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Contenedor para cargar el contenido -->
+            <main id="content">
+                <!-- Aquí se cargará el contenido de las otras páginas -->
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-neutral-500 text-white py-6">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row justify-between">
+                        <!-- Sección de la izquierda -->
+                        <div class="mb-4 md:mb-0">
+                            <h5 class="text-lg font-bold">SmartLife</h5>
+                            <p class="text-sm">
+                                Innovando tu salud y estilo de vida con la
+                                última
+                                tecnología.
+                            </p>
+                        </div>
+                        <!-- Sección central -->
+                        <div class="mb-4 md:mb-0">
+                            <h5 class="text-lg font-bold">SmartLife</h5>
+                            <ul class="text-sm space-y-2">
+                                <li><a href="#"
+                                        class="hover:underline">Inicio</a></li>
+                                <li><a href="#"
+                                        class="hover:underline">Productos</a></li>
+                                <li><a href="#"
+                                        class="hover:underline">SmartCare</a></li>
+                                <li><a href="#" class="hover:underline">Quiénes
+                                        Somos</a></li>
+                                <li><a href="#"
+                                        class="hover:underline">Contáctanos</a></li>
+                            </ul>
+                        </div>
+                        <!-- Sección de la derecha -->
+                        <div>
+                            <h5 class="text-lg font-bold">Contáctanos</h5>
+                            <p class="text-sm">Email: contacto@smartlife.com</p>
+                            <p class="text-sm">Tel: +123 456 7890</p>
+                            <div class="flex space-x-4 mt-2">
+                                <!-- Iconos de redes sociales (pueden ser reemplazados con los logos que prefieras) -->
+                                <a
+                                    href="https://github.com/cambrv/SmartLifePage"
+                                    target="_blank" class="hover:text-gray-400">
+                                    <svg class="h-6 w-6" fill="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path
+                                            d="M12 0C5.373 0 0 5.373 0 12c0 4.99 3.657 9.128 8.438 10.383.618.113.843-.268.843-.597 0-.294-.01-1.07-.016-2.101-3.432.746-4.154-1.654-4.154-1.654-.562-1.428-1.374-1.809-1.374-1.809-1.124-.769.086-.753.086-.753 1.243.087 1.897 1.276 1.897 1.276 1.104 1.89 2.896 1.344 3.601 1.028.112-.8.43-1.345.782-1.656-2.741-.312-5.616-1.37-5.616-6.096 0-1.346.473-2.446 1.251-3.305-.126-.312-.543-1.562.119-3.256 0 0 1.024-.328 3.352 1.252a11.652 11.652 0 013.053-.409c1.034.005 2.074.14 3.052.41 2.329-1.58 3.351-1.252 3.351-1.252.664 1.694.246 2.944.12 3.256.78.859 1.251 1.959 1.251 3.305 0 4.738-2.881 5.78-5.625 6.084.444.381.839 1.13.839 2.282 0 1.648-.015 2.978-.015 3.385 0 .333.222.717.852.594C20.343 21.128 24 16.99 24 12c0-6.627-5.373-12-12-12z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-6 border-t border-neutral-500 pt-4 text-center">
+                        <p class="text-xs">
+                            &copy; 2024 SmartLife. Todos los derechos
+                            reservados.
+                        </p>
+                    </div>
+                </div>
+            </footer>
+
+            <script src="scripts/script.js" defer></script>
+        </body>
+    </html>
