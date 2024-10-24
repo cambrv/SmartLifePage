@@ -1,5 +1,5 @@
 import { collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-import { db } from '/firebase-config.js';
+import { db } from '../firebase-config.js';
 
 // Función principal para manejar el login
 export function loginUser() {

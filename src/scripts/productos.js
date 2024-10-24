@@ -3,7 +3,7 @@ import {
   collection,
   getDocs,
 } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-import { db } from '/firebase-config.js'; 
+import { db } from '../firebase-config.js'; 
 
 // Función para obtener productos desde Firebase
 export async function obtenerProductos() {

@@ -1,7 +1,6 @@
 // Importar la función para obtener los productos
 import { obtenerProductos } from "./productos.js";
 import { displayCart } from "./carro-compra.js"; // Si tienes una función de carrito
-import { facturar } from "./carro-compra.js"; // Si necesitas la función de facturación
 import { loginUser } from "./login.js"; // Si tienes lógica de login
 
 document.addEventListener("DOMContentLoaded", function () {
