@@ -96,22 +96,32 @@ export function displayCart() {
 }
 // Función para facturar
 export async function facturar() {
-  const total = cart.reduce((sum, item) => sum + item.precio, 0);
-  // Almacenar el total y detalles de la factura en localStorage
-  localStorage.setItem("invoice", JSON.stringify({ total, items: cart }));
-  console.log(
-    "Datos para la factura" + JSON.parse(localStorage.getItem("invoice"))
-  );
-  // Lógica para reducir el stock en Firebase
-  for (const item of cart) {
-    await reduceStock(item.id, 1); // Reducir stock en 1
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  if (!loggedInUser) {
+    alert("Por favor inicie sesión antes de facturar.");
+    // window.location.href = "index.html?data-page=logink.html"; // Redirigir a la sección de login si no está logueado
+    return; // Salir de la función si no está logueado
   }
-  cart = []; // Limpiar el carrito
+
+  // Si el usuario está logueado, proceder con la facturación
+  const total = cart.reduce((sum, item) => sum + item.precio, 0);
+  localStorage.setItem("invoice", JSON.stringify({ total, items: cart }));
+  console.log("Datos para la factura", JSON.parse(localStorage.getItem("invoice")));
+
+  // Reducir stock de productos en Firebase
+  for (const item of cart) {
+    await reduceStock(item.id, 1);
+  }
+
+  // Limpiar el carrito después de reducir el stock
+  cart = [];
   localStorage.setItem("cart", JSON.stringify(cart));
-  console.log("Carro limpio" + JSON.parse(localStorage.getItem("cart")));
+  console.log("Carro limpio", JSON.parse(localStorage.getItem("cart")));
+
   // Redirigir a la página de factura
-  window.location.href = "factura.html";
+  window.open("factura.html", "_blank");
 }
+
 
 // Función para reducir el stock en Firebase
 async function reduceStock(productId, quantity) {

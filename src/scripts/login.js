@@ -18,11 +18,18 @@ export function loginUser() {
                 const querySnapshot = await getDocs(q);
 
                 if (!querySnapshot.empty) {
-                    // Usuario autenticado correctamente
-                    window.location.href = "index.html";  // Redirigir a la página principal
+                    const userDoc = querySnapshot.docs[0].data();  // Assuming the first result is the logged-in user
+                    // Store user details in localStorage
+                    localStorage.setItem('loggedInUser', JSON.stringify({
+                        name: userDoc.usr_nombre,
+                        address: userDoc.usr_direccion,
+                        phone: userDoc.usr_telefono
+                    }));
+                    
                     alert("Inicio de sesión exitoso.");
+                    window.location.href = "index.html";  // Redirect to the main page
                 } else {
-                    // Usuario no encontrado o credenciales incorrectas
+                    // Incorrect credentials
                     const errorMessage = document.getElementById('error-message');
                     errorMessage.textContent = "Credenciales incorrectas.";
                     alert("Credenciales incorrectas");
