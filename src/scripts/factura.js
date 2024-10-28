@@ -8,7 +8,6 @@ function displayUserInfo() {
       document.getElementById("user-phone").textContent = loggedInUser.phone;
     } else {
       alert("Por favor inicie sesión antes de facturar.");
-    //   window.location.href = "index.html?datka-page=login"; // Redirigir al login si no está logueado
     }
   }
   
@@ -16,26 +15,25 @@ function displayUserInfo() {
   function displayInvoiceDetails() {
     const invoiceData = JSON.parse(localStorage.getItem("invoice"));
     const facturaContainer = document.getElementById("invoice-details");
-  
+    let facturaHTML='';
     if (invoiceData && facturaContainer) {
-      let facturaHTML = `<h2 class="text-2xl font-bold mb-4">Total: ${invoiceData.total.toFixed(2)} $</h2>`;
-      facturaHTML += '<ul class="divide-y divide-gray-300">';
-  
       // Mostrar cada producto en la factura
       invoiceData.items.forEach((item) => {
         facturaHTML += `
-          <li class="flex items-center justify-between py-4">
-            <div class="flex items-center">
-              <img src="${item.imagen}" alt="${item.nombre}" class="h-16 w-16 object-cover mr-4 rounded-md">
-              <div>
-                <h3 class="font-semibold">${item.nombre}</h3>
-                <p class="text-gray-500">${item.precio} $</p>
-              </div>
-            </div>
-          </li>`;
+        <li class="flex items-center justify-between py-4">
+        <div class="flex items-center">
+        <img src="${item.imagen}" alt="${item.nombre}" class="h-16 w-16 object-cover mr-4 rounded-md">
+        <div>
+        <h3 class="font-semibold">${item.nombre} - ${item.cantidad} ${item.cantidad > 1 ? "unidades" : "unidad"}</h3>
+        <p class="text-gray-500">${item.precio} $</p>
+        </div>
+        </div>
+        </li>`;
       });
-  
-      facturaHTML += '</ul>';
+      
+      facturaHTML += '</ul>' ;
+      facturaHTML += `<h2 class="text-2xl font-bold mb-4">Total: ${invoiceData.total.toFixed(2)} $</h2>`;
+      facturaHTML += '<ul class="divide-y divide-gray-300">'; 
       facturaContainer.innerHTML = facturaHTML;
     } else {
       console.error("No se encontraron datos de la factura o el contenedor no existe.");
@@ -47,7 +45,6 @@ function displayUserInfo() {
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
     if (!loggedInUser) {
       alert("Por favor inicie sesión antes de ver la factura.");
-    //   window.location.href = "index.html?data-page=login"; // Redirigir al login si no hay sesión
       return; // Evitar ejecución si el usuario no está logueado
     }
   

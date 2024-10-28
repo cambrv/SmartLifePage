@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,26 +10,73 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore-compat.js"></script>
 </head>
+
 <body>
     <div>
         <div class="flex items-center justify-center" style="height: 50vh;">
             <div class="bg-white p-8 rounded">
                 <h2 class="text-2xl mb-6">Iniciar Sesión</h2>
-                <form id="login-form">
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                        <input type="email" id="email" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                        <input type="password" id="password" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
-                    </div>
-                    <p id="error-message" class="hidden text-red-500">Credenciales incorrectas.</p>
-                    <button type="submit" class="w-full bg-neutral-500 text-white p-2 rounded">Iniciar Sesión</button>
-                    <div id="error-message" class="text-red-500 mt-4 hidden"></div>
-                </form>
+                <div id="login-section">
+                    <form id="login-form">
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700">Correo
+                                Electrónico</label>
+                            <input type="email" id="email" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                            <input type="password" id="password" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <p id="error-message" class="hidden text-red-500">Credenciales incorrectas.</p>
+                        <button type="submit" class="w-full bg-neutral-500 text-white p-2 rounded">Iniciar
+                            Sesión</button>
+                        <div id="error-message" class="text-red-500 mt-4 hidden"></div>
+                    </form>
+                </div>
+                <div id="register-section" class="hidden">
+                    <!-- Formulario de registro -->
+                    <form id="register-form" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                        <div class="mb-4">
+                            <label for="reg-email" class="block text-sm font-medium text-gray-700">Correo
+                                Electrónico</label>
+                            <input type="email" id="reg-email" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                            <input type="password" id="reg-password" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-name" class="block text-sm font-medium text-gray-700">Nombre</label>
+                            <input type="text" id="reg-name" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
+                            <input type="text" id="reg-telefono" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <div class="mb-4">
+                            <label for="reg-direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
+                            <input type="text" id="reg-direccion" required
+                                class="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                        </div>
+                        <p id="register-error-message" class="hidden text-red-500"></p>
+                        <button type="submit"
+                            class="w-full bg-green-500 text-white p-2 rounded col-span-1 md:col-span-2 lg:col-span-3">Registrarse</button>
+                    </form>
+                </div>
+                <p id="toggle-message" class="mt-4 text-center text-sm text-gray-600">
+                    ¿No tienes una cuenta? <a href="#" id="toggle-form" class="text-blue-500 hover:underline">Regístrate
+                        aquí</a>
+                </p>
+
             </div>
         </div>
-    </div>    
+    </div>
 </body>
+
 </html>

@@ -8,7 +8,7 @@ import { db } from "../firebase-config.js";
 let cart = JSON.parse(localStorage.getItem("cart")) || []; // Obtener carrito del localStorage
 
 // Función para mostrar el carrito
-export function displayCart() {
+export function displayCart(cart) {
   const cartItemsContainer = document.getElementById("cart-items");
   if (!cartItemsContainer) {
     console.error("El contenedor del carrito no se encuentra.");
@@ -32,36 +32,36 @@ export function displayCart() {
 
   cart.forEach((producto) => {
     const productoDiv = `
-        <li class="flex py-6">
-            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                <img src="${producto.imagen}" alt="${producto.nombre}" class="h-full w-full object-cover object-center" />
-            </div>
-            <div class="ml-4 flex flex-1 flex-col">
-                <div>
-                    <div class="flex justify-between text-base font-medium text-gray-900">
-                        <h3>
-                            <a href="#">${producto.nombre}</a>
-                        </h3>
-                        <p class="ml-4">${producto.precio} $</p>
-                    </div>
-                    <p class="mt-1 text-sm text-gray-500">${producto.stock}</p>
-                </div>
-                <div class="flex flex-1 items-end justify-between text-sm">
-                <p class="text-neutral-500"></p>
-                    <div class="flex">
-                        <button
-                            type="button"
-                            class="font-medium text-red-600 hover:text-red-500"
-                            data-id="${producto.id}"
-                            onclick="removeFromCart('${producto.id}')"
-                        >
-                            Eliminar
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </li>
-    `;
+      <li class="flex py-6">
+          <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+              <img src="${producto.imagen}" alt="${producto.nombre}" class="h-full w-full object-cover object-center" />
+          </div>
+          <div class="ml-4 flex flex-1 flex-col">
+              <div>
+                  <div class="flex justify-between text-base font-medium text-gray-900">
+                      <h3>
+                          <a href="#">${producto.nombre}</a>
+                      </h3>
+                      <p class="ml-4">${producto.precio} $</p>
+                  </div>
+                  <p class="mt-1 text-sm text-gray-500">Cantidad: ${producto.cantidad}</p>
+              </div>
+              <div class="flex flex-1 items-end justify-between text-sm">
+              <p class="text-neutral-500"></p>
+                  <div class="flex">
+                      <button
+                          type="button"
+                          class="font-medium text-red-600 hover:text-red-500"
+                          data-id="${producto.id}"
+                          onclick="removeFromCart('${producto.id}')"
+                      >
+                          Eliminar
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </li>
+  `;
     cartItemsContainer.innerHTML += productoDiv; // Agregar cada producto al contenedor del carrito
   });
   // Cierre de la lista
@@ -72,7 +72,10 @@ export function displayCart() {
 `;
 
   // Mostrar total de la compra
-  const total = cart.reduce((acc, item) => acc + item.precio, 0);
+  const total = cart.reduce(
+    (acc, item) => acc + item.precio * item.cantidad,
+    0
+  );
   const footerHTML = `
 <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
 <div class="flex justify-between text-base font-medium text-gray-900">
@@ -99,18 +102,23 @@ export async function facturar() {
   const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
   if (!loggedInUser) {
     alert("Por favor inicie sesión antes de facturar.");
-    // window.location.href = "index.html?data-page=logink.html"; // Redirigir a la sección de login si no está logueado
     return; // Salir de la función si no está logueado
   }
 
   // Si el usuario está logueado, proceder con la facturación
-  const total = cart.reduce((sum, item) => sum + item.precio, 0);
+  const total = cart.reduce(
+    (acc, item) => acc + item.precio * item.cantidad,
+    0
+  );
   localStorage.setItem("invoice", JSON.stringify({ total, items: cart }));
-  console.log("Datos para la factura", JSON.parse(localStorage.getItem("invoice")));
+  console.log(
+    "Datos para la factura",
+    JSON.parse(localStorage.getItem("invoice"))
+  );
 
   // Reducir stock de productos en Firebase
   for (const item of cart) {
-    await reduceStock(item.id, 1);
+    await reduceStock(item.id, item.cantidad);
   }
 
   // Limpiar el carrito después de reducir el stock
@@ -121,7 +129,6 @@ export async function facturar() {
   // Redirigir a la página de factura
   window.open("factura.html", "_blank");
 }
-
 
 // Función para reducir el stock en Firebase
 async function reduceStock(productId, quantity) {
@@ -139,18 +146,29 @@ async function reduceStock(productId, quantity) {
 
 // Función para eliminar un producto del carrito
 export function removeFromCart(productId) {
-  // Filtrar el carrito para que solo contenga productos que no coincidan con el ID a eliminar
-  cart = cart.filter((product) => product.id !== productId);
+  // Buscar el índice del producto en el carrito
+  const productIndex = cart.findIndex((product) => product.id === productId);
 
-  // Actualizar el carrito en localStorage
-  localStorage.setItem("cart", JSON.stringify(cart));
+  if (productIndex !== -1) {
+    // Si el producto se encuentra en el carrito, reducir su cantidad
+    if (cart[productIndex].cantidad > 1) {
+      // Disminuir la cantidad en 1
+      cart[productIndex].cantidad -= 1;
+    } else {
+      // Si la cantidad es 1, eliminar el producto del carrito
+      cart.splice(productIndex, 1);
+    }
 
-  // Mostrar nuevamente el carrito actualizado
-  displayCart();
+    // Actualizar el carrito en localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    // Mostrar nuevamente el carrito actualizado
+    displayCart(cart); 
+  }
 }
 
 // Mostrar el carrito
-displayCart();
+displayCart(cart);
 
 // Exponer funciones globalmente para el uso de 'onclick' en HTML
 window.facturar = facturar;

@@ -2,29 +2,29 @@
 import {
   collection,
   getDocs,
-} from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js';
-import { db } from '../firebase-config.js'; 
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { db } from "../firebase-config.js";
 
 // Función para obtener productos desde Firebase
 export async function obtenerProductos() {
   try {
-      // Referencia a la colección de productos
-      const productosCollection = collection(db, "productos");
+    // Referencia a la colección de productos
+    const productosCollection = collection(db, "productos");
 
-      // Obtener todos los documentos de la colección
-      const productosSnapshot = await getDocs(productosCollection);
+    // Obtener todos los documentos de la colección
+    const productosSnapshot = await getDocs(productosCollection);
 
-      // Convertir los datos en un array
-      const productosList = productosSnapshot.docs.map((doc) => ({
-        id: doc.id, // Agregar el ID del documento para el carrito
-        ...doc.data(),
+    // Convertir los datos en un array
+    const productosList = productosSnapshot.docs.map((doc) => ({
+      id: doc.id, // Agregar el ID del documento para el carrito
+      ...doc.data(),
     }));
-      console.log("Productos obtenidos:", productosList);
+    console.log("Productos obtenidos:", productosList);
 
-      // Llamar a la función para mostrar los productos en la página
-      mostrarProductos(productosList);
+    // Llamar a la función para mostrar los productos en la página
+    mostrarProductos(productosList);
   } catch (error) {
-      console.error("Error al obtener productos:", error);
+    console.error("Error al obtener productos:", error);
   }
 }
 
@@ -33,12 +33,12 @@ function mostrarProductos(productos) {
   const productosContainer = document.getElementById("product-list");
 
   if (!productosContainer) {
-      console.error("El contenedor de productos no fue encontrado.");
-      return;
+    console.error("El contenedor de productos no fue encontrado.");
+    return;
   }
 
   // Limpiar el contenedor antes de agregar nuevos productos
-  productosContainer.innerHTML = '';
+  productosContainer.innerHTML = "";
 
   productos.forEach((producto) => {
     const productoDiv = document.createElement("div");
@@ -46,9 +46,9 @@ function mostrarProductos(productos) {
 
     const nombre = producto.prod_nombre || "Nombre no disponible";
     const desc = producto.prod_desc || "Nombre no disponible";
-    const stock = producto.prod_stock || "Nombre no disponible";
+    const stock = producto.prod_stock || "0";
     const precio = producto.prod_precio || "Precio no disponible";
-    const url = producto.prod_url || "ruta/por/defecto.jpg"; // Imagen por defecto si no existe
+    const url = producto.prod_url || ""; // Imagen por defecto si no existe
 
     productoDiv.innerHTML = `
           <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
@@ -62,35 +62,62 @@ function mostrarProductos(productos) {
       `;
 
     productosContainer.appendChild(productoDiv);
-});
+  });
 }
 
 // Función para agregar un producto al carrito
-window.agregarAlCarrito = function(productId) {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+window.agregarAlCarrito = function (productId) {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   // Asegúrate de tener acceso al producto que deseas agregar
-  const producto = Array.from(document.querySelectorAll('.producto')).find(p => 
-      p.querySelector('button').getAttribute('data-id') === productId
+  const producto = Array.from(document.querySelectorAll(".producto")).find(
+    (p) => p.querySelector("button").getAttribute("data-id") === productId
   );
 
   if (producto) {
-      const nombre = producto.querySelector('h3').textContent;
-      const precio = parseFloat(producto.querySelector('p').textContent.replace('$', '').trim());
-      const imagen = producto.querySelector('img').src; // Obtener la imagen
-      const stock = producto.querySelector('p:nth-of-type(2)').textContent; // Obtener el stock
+    const nombre = producto.querySelector("h3").textContent;
+    const precio = parseFloat(
+      producto.querySelector("p").textContent.replace("$", "").trim()
+    );
+    const imagen = producto.querySelector("img").src; // Obtener la imagen
+    const stockText = producto.querySelector("p:nth-of-type(2)").textContent;
+    const stock = parseInt(stockText.replace("Stock: ", "").trim()) || 0;
 
-      // Agregar el producto al carrito
-      cart.push({
+    // Verifica si el producto ya está en el carrito
+    const productoExistente = cart.find((p) => p.id === productId);
+
+    if (productoExistente) {
+      // Comprobar si hay stock disponible antes de incrementar la cantidad
+      if (
+        productoExistente.cantidad < stock ||
+        productoExistente.cantidad <= stock
+      ) {
+        productoExistente.cantidad += 1;
+        alert(`${nombre} ha sido agregado al carrito!`);
+      } else {
+        alert(
+          `No hay suficiente stock disponible para agregar más unidades de ${nombre}.`
+        );
+      }
+    } else {
+      // Si no está en el carrito y hay stock, agregar el producto
+      if (stock > 0) {
+        cart.push({
           id: productId,
           nombre: nombre,
           precio: precio,
-          imagen: imagen, // Agregar la imagen al carrito
-          stock: stock, // Agregar el stock al carrito
-      });
+          imagen: imagen,
+          stock: stock,
+          cantidad: 1,
+        });
+        alert(`${nombre} ha sido agregado al carrito!`);
+      } else {
+        alert(`Lo sentimos, ${nombre} no tiene stock disponible.`);
+      }
+    }
 
-      // Guardar el carrito en el localStorage
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert(`${nombre} ha sido agregado al carrito!`);
+    // Guardar el carrito en el localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
+    `${nombre} ha sido agregado al carrito!`;
   }
 };
